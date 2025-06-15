@@ -139,12 +139,15 @@ The tool provides comprehensive logging:
 - **Log File**: Detailed execution logs in `quiz_automation.log`
 - **Error Tracking**: Detailed error messages and retry attempts
 
-## ⚠️ Important Notes
+⚠️ **Educational & Research Purpose Only**
+This tool is developed for:
+- Learning web automation techniques
+- Understanding AI integration
+- Educational research purposes
+- Demonstrating Playwright capabilities
 
-- **Educational Purpose**: This tool is for educational and learning purposes
-- **Responsible Use**: Use responsibly and in accordance with your institution's policies
-- **Rate Limiting**: The tool includes delays to avoid overwhelming the platform
-- **Browser Visibility**: Runs in non-headless mode for transparency
+**Not intended for academic dishonesty or violating platform ToS**
+
 
 ## 🔮 Future Enhancements
 
