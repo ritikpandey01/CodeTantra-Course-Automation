@@ -162,9 +162,6 @@ The tool provides comprehensive logging:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## ⚡ Quick Start
 
@@ -183,15 +180,3 @@ cp .env.example .env
 python file.py
 ```
 
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-- Check the log file `quiz_automation.log`
-- Review the configuration in `data.json`
-- Ensure all environment variables are set correctly
-- Verify your CodeTantra credentials are valid
-
----
-
-⭐ **Star this repository if it helped you!**
