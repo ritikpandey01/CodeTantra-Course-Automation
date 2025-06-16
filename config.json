@@ -1,0 +1,83 @@
+{
+  "//platform": "Name of the learning platform (e.g., Codetantra, Coursera, Udemy)",
+  "platform": "PlatformName",
+  "//url": "Login page URL for the platform",
+  "url": "https://example.com/login",
+  "//course_name": "Full name of the course as it appears on the platform",
+  "course_name": "Course Name",
+  "//course_frame": "Iframe name for course content (if applicable, else leave as empty string)",
+  "course_frame": "",
+  "//login": "Login steps using Playwright selectors",
+  "login": {
+    "//email": "Selector for email/username field",
+    "email": {
+      "role": "textbox",
+      "name": "Email or Username"
+    },
+    "//password": "Selector for password field",
+    "password": {
+      "role": "textbox",
+      "name": "Password"
+    },
+    "//button": "Selector for login button",
+    "button": {
+      "role": "button",
+      "name": "Log In"
+    }
+  },
+  "//course_navigation": "Steps to navigate to the course",
+  "course_navigation": {
+    "//view_courses": "Selector for accessing course list",
+    "view_courses": {
+      "role": "button",
+      "name": "My Courses"
+    },
+    "//frame": "Iframe for course selection (if applicable, else empty string)",
+    "frame": "",
+    "//partial_match": "Partial text to match course name if exact match fails",
+    "partial_match": "Course Name"
+  },
+  "//contents_navigation": "Selector to navigate to course contents",
+  "contents_navigation": {
+    "role": "link",
+    "name": "Contents"
+  },
+  "//back_to_contents": "Selector to return to contents page",
+  "back_to_contents": {
+    "role": "link",
+    "name": "Contents"
+  },
+  "//submit_buttons": "List of submit button names for quizzes",
+  "submit_buttons": [
+    "Submit",
+    "Check Answer",
+    "Run",
+    "Execute",
+    "Verify"
+  ],
+  "//next_buttons": "List of next/continue button selectors",
+  "next_buttons": [
+    {"role": "button", "name": "Next"},
+    {"role": "button", "name": "Continue"}
+  ],
+  "//units": "Course structure with units and subtopics",
+  "units": [
+    {
+      "//name": "Name of the unit/module",
+      "name": "Unit 1",
+      "//subtopics": "List of subtopics and their quizzes",
+      "subtopics": [
+        {
+          "//name": "Name of the subtopic",
+          "name": "Introduction",
+          "//quiz": "Name of the quiz or assessment",
+          "quiz": "Quiz 1"
+        }
+      ]
+    }
+  ],
+  "//quiz_prompt": "Prompt for Groq to answer multiple-choice or text-based questions",
+  "quiz_prompt": "Analyze this quiz page content. Find the question and options.\nThen tell me ONLY the numbers of the correct options (e.g., \"1, 3\") for multiple-choice, or the exact answer text for text-based questions.\nNo explanation needed, no prefix, no suffix.\n\nPage content:\n{content}",
+  "//code_prompt": "Prompt for Groq to answer coding questions",
+  "code_prompt": "You are a coding expert. Provide ONLY the code solution for the following problem, with no explanation or comments.\n\nProblem:\n{content}\n\nCode:"
+}
