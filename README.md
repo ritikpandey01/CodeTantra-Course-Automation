@@ -1,239 +1,272 @@
-Course Automation Script
+# 🚀 Course Automation Script
 
-This Python script automates online courses on any e-learning platform. Using Playwright for browser navigation and Groq for quiz answers, it’s built to handle multiple-choice, text, and coding questions. Customize it easily to fit your platform and course, saving you time and effort.
+A powerful Python script that automates online courses on **any e-learning platform**. Using Playwright for seamless browser navigation and Groq AI for intelligent quiz solving, this tool handles multiple-choice, text-based, and coding questions with ease.
 
+## ✨ Key Features
 
+- **🌐 Universal Compatibility**: Easily adapt to any e-learning platform through simple configuration
+- **🧠 AI-Powered Quiz Solver**: Tackles multiple-choice, text, and coding questions using Groq API
+- **🤖 Automated Navigation**: Handles login, course access, and quiz navigation automatically
+- **🔐 Secure Credential Management**: Stores sensitive information in `.env` files (Git-ignored)
+- **📊 Comprehensive Logging**: Detailed logs in `quiz_automation.log` for easy debugging
+- **👀 Visual Debugging**: Browser visibility option for troubleshooting
 
-Features
+## 📋 Prerequisites
 
+- Python 3.8 or higher
+- A Groq API key ([Get one here](https://console.groq.com/))
+- Access to an online course platform
 
+## 🛠️ Installation
 
+### 1. Clone the Repository
 
+```bash
+git clone https://github.com/your-username/course-automation.git
+cd course-automation
+```
 
-Flexible: Works with any platform by editing config.json.
+### 2. Install Dependencies
 
-
-
-Quiz Support: Solves multiple-choice, text, and coding questions.
-
-
-
-Automated Flow: Handles login, course selection, and quiz navigation.
-
-
-
-Secure: Stores credentials in .env, ignored by Git.
-
-
-
-Debug-Friendly: Logs details in quiz_automation.log and shows browser actions.
-
-
-
-Setup Guide
-
-Follow these steps to get the script running:
-
-1. Clone the Repository
-
-git clone https://github.com/your-username/CourseBlaze.git
-cd CourseBlaze
-
-2. Install Dependencies
-
-Install required packages and Playwright browsers:
-
+```bash
+# Install Python packages
 pip install -r requirements.txt
+
+# Install Playwright browsers
 playwright install
+```
 
-3. Set Up Credentials
+### 3. Set Up Environment Variables
 
-
-
-
-
-Copy the template:
-
+```bash
+# Copy the environment template
 cp env.example .env
+```
 
+Edit the `.env` file with your credentials:
 
-
-Edit .env with your platform login and Groq API key:
-
+```env
 PLATFORM_EMAIL=your_email@example.com
 PLATFORM_PASSWORD=your_password
 GROQ_API_KEY=your_groq_api_key
+```
 
-Note: .env is excluded from Git for security.
+> **Note**: The `.env` file is automatically ignored by Git for security.
 
-4. Configure Your Platform
+### 4. Configure Your Platform
 
-
-
-
-
-Copy the config template:
-
+```bash
+# Copy the configuration template
 cp config.example.json config.json
+```
 
+Edit `config.json` to match your platform. Here's what you need to configure:
 
+#### Platform Settings
+- **url**: Login page URL
+- **course_name**: Name of your course
+- **course_frame**: iframe selector (if applicable)
 
-Edit config.json for your platform:
+#### Navigation Selectors
+Use browser dev tools (F12) to find Playwright selectors:
+- **login**: Email, password, and button selectors
+- **course_navigation**: Course access elements
+- **contents_navigation**: Content navigation elements
+- **back_to_contents**: Return navigation elements
 
+#### Course Structure
+- **units**: Array of course modules
+- **subtopics**: Topics within each unit
+- **quiz**: Quiz names for each subtopic
 
+#### AI Prompts
+- **quiz_prompt**: Instructions for multiple-choice/text questions
+- **code_prompt**: Instructions for coding questions
 
+#### Example Configuration
 
-
-Platform Details: Set url, course_name, and course_frame (if iframes are used).
-
-
-
-Navigation: Define login, course_navigation, contents_navigation, and back_to_contents using Playwright selectors. Find role and name in browser dev tools (F12).
-
-
-
-Course Structure: Add units and subtopics with quiz names from the platform.
-
-
-
-Quiz Prompts: Set quiz_prompt for multiple-choice/text and code_prompt for coding questions.
-
-
-
-Example:
-
+```json
 {
   "platform": "LearningPlatform",
   "url": "https://platform.com/login",
-  "course_name": "Python Basics",
+  "course_name": "Python Fundamentals",
   "course_frame": "",
   "login": {
     "email": {"role": "textbox", "name": "Email"},
     "password": {"role": "textbox", "name": "Password"},
-    "button": {"role": "button", "name": "Login"}
+    "button": {"role": "button", "name": "Sign In"}
+  },
+  "course_navigation": {
+    "role": "link",
+    "name": "Start Course"
   },
   "units": [
     {
-      "name": "Module 1",
+      "name": "Module 1: Python Basics",
       "subtopics": [
-        {"name": "Introduction", "quiz": "Quiz 1"}
+        {
+          "name": "Introduction to Python",
+          "quiz": "Python Basics Quiz"
+        },
+        {
+          "name": "Variables and Data Types",
+          "quiz": "Variables Quiz"
+        }
       ]
     }
-  ]
+  ],
+  "quiz_prompt": "Answer this quiz question based on the context provided...",
+  "code_prompt": "Write Python code to solve this programming problem..."
 }
+```
 
-5. Customize the Script (Optional)
+## 🚀 Usage
 
-The script supports multiple-choice, text, and coding questions. For other types (e.g., drag-and-drop):
+Run the automation script:
 
-
-
-
-
-Edit automate_platform.py, update solve_quiz to detect new question types.
-
-
-
-Add functions like handle_drag_drop_question, similar to handle_code_question.
-
-
-
-Add new prompts to config.json if needed.
-
-
-
-Adjust timeouts in the script for slow platforms.
-
-6. Run the Script
-
+```bash
 python automate_platform.py
+```
+
+The script will:
+1. Open a browser window (visible for debugging)
+2. Log into your platform
+3. Navigate to your course
+4. Complete quizzes automatically
+5. Log all activities to `quiz_automation.log`
+
+## 🔧 Customization
+
+### Adding New Question Types
+
+The script currently supports multiple-choice, text, and coding questions. To add support for other types (e.g., drag-and-drop):
+
+1. **Modify the main script**:
+   ```python
+   # In automate_platform.py, update the solve_quiz function
+   def solve_quiz(page, config):
+       # Add detection for new question types
+       if page.locator("drag-drop-container").is_visible():
+           handle_drag_drop_question(page, config)
+   ```
+
+2. **Add new handler functions**:
+   ```python
+   def handle_drag_drop_question(page, config):
+       # Your drag-and-drop logic here
+       pass
+   ```
+
+3. **Update configuration**:
+   ```json
+   {
+     "drag_drop_prompt": "Instructions for drag-and-drop questions..."
+   }
+   ```
+
+### Platform-Specific Adjustments
 
+- **Slow platforms**: Increase timeout values in the script
+- **Complex navigation**: Add additional selectors to `config.json`
+- **Special authentication**: Modify login logic in `automate_platform.py`
 
+## 📝 Debugging Tips
 
+### Common Issues and Solutions
 
+1. **"Element not found" errors**:
+   - Use browser dev tools to verify selectors
+   - Check if elements are in iframes
+   - Increase wait times for slow-loading content
 
-The browser opens (headless=False) for debugging.
+2. **Login failures**:
+   - Verify credentials in `.env` file
+   - Check for CAPTCHAs (may require manual intervention)
+   - Ensure selectors match the actual login form
 
+3. **Quiz not being solved**:
+   - Review `quiz_automation.log` for detailed error messages
+   - Test prompts with individual questions
+   - Verify Groq API key is valid
 
+### Debugging Mode
 
-Check quiz_automation.log for progress and errors.
+The script runs with `headless=False` by default, allowing you to:
+- Watch the automation in real-time
+- Identify where the script gets stuck
+- Manually intervene if needed
 
+## 📊 Logging
 
+All activities are logged to `quiz_automation.log`:
+- Login attempts and success/failure
+- Course navigation steps
+- Quiz questions and AI responses
+- Error messages and stack traces
 
-Customization Tips
+## ⚠️ Important Considerations
 
-Tailor the script to your platform:
+### Answer Quality
+- AI responses depend on prompt quality and page content
+- Fine-tune `quiz_prompt` and `code_prompt` for better accuracy
+- Consider the context provided to the AI model
 
+### Platform Limitations
+- Some platforms may have CAPTCHAs or anti-bot measures
+- Complex authentication flows may require manual intervention
+- Rate limiting might affect performance
 
+### Supported Question Types
+- ✅ Multiple-choice questions
+- ✅ Text-based questions
+- ✅ Coding questions
+- ❌ Drag-and-drop (requires customization)
+- ❌ File upload questions (requires customization)
 
+### Ethical Usage
+- Use responsibly and in accordance with your platform's terms of service
+- Respect rate limits and platform policies
+- Consider the educational value of automated completion
 
+## 🤝 Contributing
 
-Platform UI: Use browser dev tools to find selectors (e.g., role="button", name="Submit") and add them to config.json.
+Contributions are welcome! Here's how you can help:
 
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Commit your changes**: `git commit -m 'Add amazing feature'`
+4. **Push to the branch**: `git push origin feature/amazing-feature`
+5. **Open a Pull Request**
 
+### Areas for Improvement
+- Support for additional question types
+- GUI interface for easier configuration
+- Multi-platform configuration templates
+- Enhanced error handling and recovery
 
-Course Layout: Match units and subtopics in config.json to your course’s structure.
+## 📄 License
 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 🙋‍♂️ Support
 
-Question Types:
+Having trouble? Here's how to get help:
 
+1. **Check the logs**: Review `quiz_automation.log` for detailed error information
+2. **Browse existing issues**: Look through [GitHub Issues](https://github.com/your-username/course-automation/issues)
+3. **Create a new issue**: Provide detailed information about your problem
+4. **Join discussions**: Participate in [GitHub Discussions](https://github.com/your-username/course-automation/discussions)
 
+## 🎯 Roadmap
 
+- [ ] GUI configuration interface
+- [ ] Support for more question types
+- [ ] Multi-course automation
+- [ ] Progress tracking and analytics
+- [ ] Integration with popular learning platforms
 
+---
 
-Multiple-Choice/Text: Tune quiz_prompt for your platform’s quiz format.
+**Happy Learning!** 🎓 Automate your courses responsibly and focus on understanding the concepts that matter most.
 
-
-
-Coding: Adjust code_prompt for languages like Python or Java.
-
-
-
-Others: Add logic to solve_quiz in automate_platform.py for drag-and-drop or file uploads, with new prompts in config.json.
-
-
-
-Debugging:
-
-
-
-
-
-Use headless=False to watch the script.
-
-
-
-Check quiz_automation.log for errors like “button not found” and fix selectors or timeouts.
-
-
-
-Test one quiz to validate config.json.
-
-
-
-Notes
-
-
-
-
-
-Accuracy: Groq’s answers depend on prompts and page content. Test quiz_prompt and code_prompt for best results.
-
-
-
-Platform Issues: CAPTCHAs or complex logins may need manual steps or script changes.
-
-
-
-Question Types: Supports multiple-choice, text, and coding. Others need code updates.
-
-
-
-Usage: Respect your platform’s rules and use ethically.
-
-
-
-Contact
-
-Questions or suggestions? Open an issue on GitHub. Happy automating! 😎
+*Made with ❤️ by developers, for learners*
