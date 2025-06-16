@@ -21,7 +21,7 @@ A smart Python script that handles course navigation and quiz completion on any 
 
 ### 1️⃣ Clone & Install
 ```bash
-git clone https://github.com/your-username/course-automation.git
+git clone https://github.com/ritikpandey01/Course-Automation
 cd course-automation
 pip install -r requirements.txt
 playwright install
@@ -219,16 +219,9 @@ Want to improve the script? Here's how:
 - [ ] Multi-course batch processing
 - [ ] Progress analytics and reporting
 
----
-
-## 📄 License
-
-This project is open source. Use it however you want, but use it responsibly!
 
 ---
 
 **Ready to automate your courses?** 🚀 
 
 Configure `config.json` for your platform, run the script, and watch the magic happen. Check the logs if anything goes wrong!
-
-*Built by students, for students who want to focus on learning the important stuff.* 📚✨
